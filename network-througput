@@ -1,0 +1,31 @@
+#!/bin/bash
+
+hostname=$1;
+community=$2;
+
+if [ $# -lt 2 ]; then
+  echo "error $0 hostname community_string";
+	exit 1;
+fi
+
+states="In Out";
+graph="";
+content="";
+for ids in $(snmpwalk -v2c -c $community -Oq $hostname IF-MIB::ifDescr|awk -F"." '{print $2}'|awk -F" " '{print $1"_"$2}');do
+	id=${ids%%_*} 
+	interface=${ids##*_}
+	for state in $(echo $states); do
+ 		for status in $(snmpwalk -v2c -c $community -Oq $hostname  IF-MIB::if"$state"Octets|awk -F"." '{print $2}'|awk -F" " '{print $1"_"$2}'); do
+			outid=${status%%_*}
+			tput=${status##*_}
+			if [[ $tput  -gt 0 ]]; then
+	 			if [ "$outid" == "$id" ]; then	
+					graph=$graph""$interface"_"$state"="$tput"o;;;0 ";
+					content=$content""$interface"_"$state":"$tput" ";
+				fi	
+			fi
+		done
+	done
+done
+
+echo $content"|"$graph
