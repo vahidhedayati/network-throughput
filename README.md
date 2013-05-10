@@ -50,4 +50,10 @@ The HTML Email combines the graphs too so when an alert appears it is so easy to
 
 Its all very very neat
 
+---------------
+
+snmp remote netstat:
+/usr/bin/snmpnetstat {hostname} -t 10 -Cn -Cp tcp -v 2c  -c {community string}
+
+
 
