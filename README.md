@@ -19,13 +19,8 @@ Network throughput graphs typically provided by cacti - purpose of this script i
 
 ---- Totally off the Topic now -----
 
-Reason why we are moving away from Cacti is because in order to get things to work configuration is required, in the case of nagios:
 
-Everything is already configured so why not use a seperate call (in this case I created an offline contact group which does not email at all) and put this check against it.
-
-
-
-This link : is really worth a serious look because Fantastic Frank has done a lot of work and it works superb:
+This link is really worth a serious look :
 
 http://nagios.frank4dd.com/howto/nagios-flexible-notifications.htm
 
